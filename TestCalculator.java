@@ -12,4 +12,9 @@ public class TestCalculator {
     public void add_singleNumberisTheNumberItself() {
         assertEquals(20, new Calculator().add("20"));
     }
+
+    @Test
+    public void add_twoNumbersisTheSum() {
+        assertEquals(20, new Calculator().add("8,12"));
+    }
 }
