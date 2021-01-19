@@ -27,4 +27,9 @@ public class TestCalculator {
     public void add_multipleNumbersisTheSumWithNewLineDlmtr() {
         assertEquals(6, new Calculator().add("1\n2,3"));
     }
+
+    @Test
+    public void add_multipleNumbersisTheSumWithCustomDlmtr() {
+        assertEquals(3, new Calculator().add("//;\n1;2"));
+    }
 }
