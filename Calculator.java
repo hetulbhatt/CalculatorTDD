@@ -36,6 +36,9 @@ public class Calculator {
             if(num < 0) {
                 exceptionMessage.append(String.valueOf(num)+" ");
             }
+            if(num > 1000) {
+                continue;
+            }
             result += num;
         }
         if(exceptionMessage.length() > 0) {
@@ -44,7 +47,7 @@ public class Calculator {
         return result;
     }
 
-    public static void main(String[] args) {
-        new Calculator().add("1\n2,3");
-    }
+    // public static void main(String[] args) {
+    //     new Calculator().add("1\n2,3");
+    // }
 }

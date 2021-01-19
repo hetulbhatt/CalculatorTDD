@@ -37,4 +37,9 @@ public class TestCalculator {
     public void add_negativeNumbersNotAllowed() {
         assertEquals(0, new Calculator().add("//;\n1;2;-3"));
     }
+
+    @Test
+    public void add_ignoreGreaterThan1000() {
+        assertEquals(1006, new Calculator().add("//;\n1;2;3;1001;1000"));
+    }
 }
