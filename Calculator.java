@@ -1,33 +1,80 @@
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Calculator {
+    Set<Character> specialCharacters;
+
+    Calculator() {
+        this.specialCharacters = new TreeSet<>();
+        this.specialCharacters.add('.');
+        this.specialCharacters.add('+');
+        this.specialCharacters.add('*');
+        this.specialCharacters.add('?');
+        this.specialCharacters.add('^');
+        this.specialCharacters.add('$');
+        this.specialCharacters.add('(');
+        this.specialCharacters.add(')');
+        this.specialCharacters.add('[');
+        this.specialCharacters.add(']');
+        this.specialCharacters.add('{');
+        this.specialCharacters.add('}');
+        this.specialCharacters.add('\\');
+    }
+
     public int add(String numbers) {
         int result = 0;
-
+        
         if(numbers == null || numbers.isEmpty()) {;}
         else if(numbers.startsWith("//")) {
-            String dlmtr = numbers.substring(2,3);
+            String dlmtr = "";
+            if(numbers.contains("[")) {
+                dlmtr = extractDlmtrs(numbers);
+                numbers = numbers.substring(numbers.lastIndexOf("]")+2);
+            } else {
+                dlmtr = numbers.substring(2,3);
+                numbers = numbers.substring(4);
+            }
             try {
-                result = new Calculator().doSummationGivenDlmtr(numbers.substring(4), dlmtr);
+                result = doSummationGivenDlmtr(numbers, dlmtr);
             } catch(NegativesNotAllowedException e) {
                 e.printStackTrace();
             }
             
-        }
-        else if(numbers.contains(",")) {
+        } else if(numbers.contains(",")) {
             String dlmtr = ",|\n";
             try {
-                result = new Calculator().doSummationGivenDlmtr(numbers, dlmtr);
+                result = doSummationGivenDlmtr(numbers, dlmtr);
             } catch(NegativesNotAllowedException e) {
                 e.printStackTrace();
-            }
-            
+            }    
         } else {
             result = Integer.parseInt(numbers);
         }
-        
         return result;
     }
 
-    public int doSummationGivenDlmtr(String expr, String dlmtr) throws NegativesNotAllowedException {
+    private String extractDlmtrs(String numbers) {
+        StringBuilder sbr = new StringBuilder();
+        String[] delims = numbers.substring(3, numbers.lastIndexOf("]")).split("\\]\\[");
+        if(delims.length > 0) {
+            for(String s : delims) {
+                sbr.append(s+"|");
+            }
+            sbr.delete(sbr.length()-1, sbr.length());
+        }
+        String intermediateDlmtr = sbr.toString();
+        StringBuilder finalDlmtr = new StringBuilder();
+        for(char c : intermediateDlmtr.toCharArray()) {
+            if(this.specialCharacters.contains(c)) {
+                finalDlmtr.append("\\" + c);
+            } else {
+                finalDlmtr.append("" + c);
+            }
+        }
+        return finalDlmtr.toString();
+    }
+
+    private int doSummationGivenDlmtr(String expr, String dlmtr) throws NegativesNotAllowedException {
         int result = 0;
         String[] nums = expr.split(dlmtr);
         StringBuilder exceptionMessage = new StringBuilder();
@@ -46,8 +93,4 @@ public class Calculator {
         }
         return result;
     }
-
-    // public static void main(String[] args) {
-    //     new Calculator().add("1\n2,3");
-    // }
 }

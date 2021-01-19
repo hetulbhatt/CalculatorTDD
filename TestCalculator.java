@@ -42,4 +42,19 @@ public class TestCalculator {
     public void add_ignoreGreaterThan1000() {
         assertEquals(1006, new Calculator().add("//;\n1;2;3;1001;1000"));
     }
+
+    @Test
+    public void add_anyLengthDelimiter() {
+        assertEquals(6, new Calculator().add("//[***]\n1***2***3"));
+    }
+
+    @Test
+    public void add_multipleDelimiters() {
+        assertEquals(6, new Calculator().add("//[*][%]\n1*2%3"));
+    }
+
+    @Test
+    public void add_anyLengthMultipleDelimiters() {
+        assertEquals(10, new Calculator().add("//[***][%%][$]\n1***2%%3$4"));
+    }
 }
