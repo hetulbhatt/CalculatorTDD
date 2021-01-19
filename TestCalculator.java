@@ -17,4 +17,9 @@ public class TestCalculator {
     public void add_twoNumbersisTheSum() {
         assertEquals(20, new Calculator().add("8,12"));
     }
+
+    @Test
+    public void add_multipleNumbersisTheSum() {
+        assertEquals(30, new Calculator().add("8,12,10"));
+    }
 }

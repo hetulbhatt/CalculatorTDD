@@ -1,12 +1,16 @@
 public class Calculator {
     public int add(String numbers) {
+        int result = 0;
         if(numbers == null || numbers.isEmpty()) {
-            return 0;
+            result = 0;
         } else if(numbers.contains(",")) {
             String[] nums = numbers.split(",");
-            return Integer.parseInt(nums[0]) + Integer.parseInt(nums[1]);
+            for(String str : nums) {
+                result += Integer.parseInt(str);
+            }
         } else {
-            return Integer.parseInt(numbers);
+            result = Integer.parseInt(numbers);
         }
+        return result;
     }
 }
