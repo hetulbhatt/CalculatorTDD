@@ -32,4 +32,9 @@ public class TestCalculator {
     public void add_multipleNumbersisTheSumWithCustomDlmtr() {
         assertEquals(3, new Calculator().add("//;\n1;2"));
     }
+
+    @Test
+    public void add_negativeNumbersNotAllowed() {
+        assertEquals(0, new Calculator().add("//;\n1;2;-3"));
+    }
 }
