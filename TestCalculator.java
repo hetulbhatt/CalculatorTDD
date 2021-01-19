@@ -22,4 +22,9 @@ public class TestCalculator {
     public void add_multipleNumbersisTheSum() {
         assertEquals(30, new Calculator().add("8,12,10"));
     }
+
+    @Test
+    public void add_multipleNumbersisTheSumWithNewLineDlmtr() {
+        assertEquals(6, new Calculator().add("1\n2,3"));
+    }
 }
